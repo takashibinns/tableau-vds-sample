@@ -20,7 +20,7 @@
     "uuid": "^11.0.2"
   },
   "scripts": {
-    "server": "nodemon ./server.js",
+    "server": "node ./server.js",
     "client": "react-scripts start",
     "start": "concurrently \"npm run client\" \"npm run server\"",
     "start2": "bash ./start.sh",
