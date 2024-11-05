@@ -341,7 +341,7 @@ app.get("/getMetricData", async function (request, response) {
   //  Step 5: Map columns from the query to the datasource fields
   const fields = tableauGetColumnMetadata(columns, dataSourceFields);
 
-  //  Step 5: Execute the VDS query
+  //  Step 6: Execute the VDS query
   const results = await tableauVdsExecQuery(query,jwt);
  
   //  Return the data table
