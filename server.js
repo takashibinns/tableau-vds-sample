@@ -374,7 +374,7 @@ app.use("/", function(req, res) {
 */
 
 //  Listen on port 8000
-const port = 8000;
+const port = process.env.PORT;
 const listener = app.listen(port, function() {
   console.log("Your app is listening on port " + listener.address().port);
 });
