@@ -154,143 +154,6 @@ const tableauMetric = async (metricId, siteId, apiToken) => {
   }
 }
 
-//  Function to get a the fields from a published Tableau data source
-const tableauVdsMetadata = async (datasourceName, jwt) => {
-
-  //  Define the body of the API call
-  const payload = {
-    "connection": {
-      "tableauServerName": tabConfig.domain,
-      "siteId": tabConfig.site,
-      "datasource": datasourceName
-    },
-    "options": {
-      "returnFormat": "OBJECTS"
-    }
-  }
-
-  //  Define the URL to make the call to
-  const url = `${tabConfig.vdsBaseUrl}/read-metadata`;
-
-  //  Define the HTTP request options
-  let options = structuredClone(fetchOptions);
-  options.headers['credential-jwt'] = jwt;
-  options.method = 'post';
-  options.body = JSON.stringify(payload);
-
-  //  Make the API call, and parse the results
-  const resp = await fetch(url, options)  
-  const metadata = await resp.json()
-
-  return metadata.data;
-
-}
-
-const tableauGetColumnMetadata = (columns, metadata) => {
-
-  let fields = [];
-
-  //  Loop through each column in our query
-  columns.forEach((column) => {
-
-    //  Look for a match in the VDS metadata
-    const columnMetadata = metadata.find((m) => m.columnName == column);
-
-    if (columnMetadata) {
-      fields.push(columnMetadata);
-    } else {
-      fields.push({ columnName: column });
-    }
-  })
-
-  return fields;
-}
-
-//  Function to create a VDS query 
-const tableauVdsCreateQuery = (metric, definition, datasource) => {
-
-  //  Init an array for columnNames
-  let columns = []
-  let metadataColumns = []
-
-  const functionLookup = {
-    'AGGREGATION_AVERAGE': 'AVG',
-    'AGGREGATION_SUM': 'SUM',
-    'AGGREGATION_MEDIUM': 'MEDIUM',
-    'AGGREGATION_COUNT': 'COUNT',
-    'AGGREGATION_MIN': 'MIN',
-    'AGGREGATION_MAX': 'MAX',
-    'AGGREGATION_COUNT_DISTINCT': 'COUNT_DIST',
-  }
-
-  //  Start with the filter-able dimensions
-  definition.extension_options.allowed_dimensions.forEach( columnName => {
-    columns.push({
-      "columnName": columnName
-    })
-    metadataColumns.push(columnName)
-  })
-
-  //  Include the time dimension
-  const timeDim = definition.specification.basic_specification.time_dimension;
-  columns.push({
-    "columnName": timeDim.field
-  })
-  metadataColumns.push(timeDim.field)
-
-  //  Include the measure
-  const measure = definition.specification.basic_specification.measure;
-  const measureFunc = functionLookup[measure.aggregation] ? functionLookup[measure.aggregation] : measure.aggregation;
-  columns.push({
-    "columnName": measure.field,
-    "function": measureFunc
-  })
-  metadataColumns.push(`${measureFunc}(${measure.field})`);
-
-  //  Create the query object
-  const query = {
-    "connection": {
-      "tableauServerName": tabConfig.domain,
-      "siteId": tabConfig.site,
-      "datasource": datasource.contentUrl
-    },
-    "query": {
-      "columns": columns
-    }
-  }
-  
-  return {
-    query: query,
-    columns: metadataColumns
-  }
-}
-
-//  Function to execute a VDS Query
-const tableauVdsExecQuery = async (query, jwt) => {
-
-  //  Define the URL to make the call to
-  const url = `${tabConfig.vdsBaseUrl}/query-datasource`;
-
-  //  Define the HTTP request options
-  let options = structuredClone(fetchOptions);
-  options.headers['credential-jwt'] = jwt;
-  options.method = 'post';
-  options.body = JSON.stringify(query);
-
-  //  Make the API call, and parse the results
-  const resp = await fetch(url, options)  
-  const results = await resp.json()
-
-  //  Check for errors
-  if (results.errorCode) {
-    return {
-      error: results.message
-    }
-  } else {
-    return results.data;
-  }
-}
-
 //  HTTP Request for a Tableau JWT (for embedding)
 app.get("/tableauJwt", function (request, response) {
   
@@ -332,26 +195,28 @@ app.get("/getMetricData", async function (request, response) {
   //  Step 2: Get the metric metadata
   const {metric, definition, dataSource} = await tableauMetric(metricId, siteId, apiToken);
 
-  //  Step 3: Query for metadata of the data source
-  const dataSourceFields = await tableauVdsMetadata(dataSource.contentUrl, jwt);
+  //  Step 3: TODO - Query for metadata of the data source
   
-  //  Step 4: Create a VDS Query
-  const {query, columns} = tableauVdsCreateQuery(metric, definition, dataSource);
+  
+  //  Step 4: TODO - Create a VDS Query
+  
 
-  //  Step 5: Map columns from the query to the datasource fields
-  const fields = tableauGetColumnMetadata(columns, dataSourceFields);
+  //  Step 5: TODO - Map columns from the query to the datasource fields
+  
 
-  //  Step 5: Execute the VDS query
-  const results = await tableauVdsExecQuery(query,jwt);
+  //  Step 5: TODO - Execute the VDS query
+  
  
   //  Return the data table
+  //  The `data` and `columns` arrays need to populate the Ant Design <Table columns={columns} dataSource={data} />
+  //  More details on the specific data structure can be found here: https://ant.design/components/table
   response.send({
     metric: {
       name: definition.metadata.name,
       datasource: dataSource.name
     },
-    data:results,
-    columns: fields
+    data:[],
+    columns: []
   });
 });
 
