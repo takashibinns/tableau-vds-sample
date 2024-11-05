@@ -1,4 +1,5 @@
 # DataFam Europe 2024
+![Sample app](/screenshots/sample-app.png)
 
 This project is for the Hands of Training session at Tableau DataFam 2024.  The goal is to learn how to structure queries for Tableau's VizQL Data Service API.  This API can be used to programmatically get data from Tableau and send it somewhere else (google sheet, excel, etc) or to provide a richer experience for customers who embed Tableau content into web apps (let users generate data queries on the fly).  By the end of this session, you should be more comfortable building queries for VizQL Data Service.
 
