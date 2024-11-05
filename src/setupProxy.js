@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://localhost:4000',
+      target: 'http://localhost:8000',
       changeOrigin: true,
       followRedirects: true // This will likely fix the redirect issue
     })
