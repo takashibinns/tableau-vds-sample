@@ -14,7 +14,7 @@ You can run this project in a number of ways, but we'll cover the 2 easiest.
 If you don't have a code editor and want to get started right away, you can use Code Sandbox.
 
 #### Step a.1: Fork the Github project
-Login to Github and fork the HandsOnTraining branch of this repository.  This essentially creates a copy of the repository just for you.
+Login to Github and fork the **HandsOnTraining** branch of this repository.  This essentially creates a copy of the repository just for you.
 
 #### Step a.2: Get a CodeSandbox.io account
 [CodeSandbox.io](https://codesandbox.io/) is a website that provides an entire IDE in your web browser.  Create a free account (you can even use your github account), and [import a github repository](https://codesandbox.io/docs/learn/repositories/getting-started/repo-import).  You'll likely be prompted to allow access to Github, but after that you should be able to search for the repository you forked in step 1.  After selecting the repository, it will take a few minutes for CodeSandbox to get setup.  
@@ -47,7 +47,7 @@ If you want to run this code locally on your workstation, that should be fine to
 #### Step b.1: Clone the github repo
 ![Clone the repo](/screenshots/vscode-1.png)
 
-Get the link to the repository from Github, and copy it.  In VS Code, select **Clone Git Repository** and paste in the URL.  This should clone the repository somewhere on your local workstation
+Get the link to the **HandsOnTraining** branch of this repository from Github, and copy it.  In VS Code, select **Clone Git Repository** and paste in the URL.  This should clone the repository somewhere on your local workstation
 
 #### Step b.2: Install dependencies
 Open a terminal in this directory, and run the below command to install dependencies:
