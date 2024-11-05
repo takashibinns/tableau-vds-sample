@@ -1,0 +1,42 @@
+{
+  // These tasks will run in order when initializing your CodeSandbox project.
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "npm install"
+    }
+  ],
+
+  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
+  "tasks": {
+    "server": {
+      "name": "server",
+      "command": "yarn server"
+    },
+    "client": {
+      "name": "client",
+      "command": "yarn client"
+    },
+    "start": {
+      "name": "start",
+      "command": "npm run start",
+      "runAtStart": true
+    },
+    "start2": {
+      "name": "start2",
+      "command": "yarn start2"
+    },
+    "build": {
+      "name": "build",
+      "command": "yarn build"
+    },
+    "test": {
+      "name": "test",
+      "command": "yarn test"
+    },
+    "eject": {
+      "name": "eject",
+      "command": "yarn eject"
+    }
+  }
+}
