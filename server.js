@@ -201,9 +201,6 @@ app.get("/getMetricData", async function (request, response) {
   //  Step 4: TODO - Create a VDS Query
   
 
-  //  Step 5: TODO - Map columns from the query to the datasource fields
-  
-
   //  Step 5: TODO - Execute the VDS query
   
  
@@ -215,8 +212,8 @@ app.get("/getMetricData", async function (request, response) {
       name: definition.metadata.name,
       datasource: dataSource.name
     },
-    data:[],
-    columns: []
+    data:[{}],
+    columns: [{}]
   });
 });
 
